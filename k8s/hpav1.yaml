@@ -1,0 +1,50 @@
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+ name: hpa-demo-deployment-v1
+spec:
+ scaleTargetRef:
+   apiVersion: apps/v1
+   kind: Deployment
+   name: hpa-demo-deployment-v1
+ minReplicas: 1
+ maxReplicas: 10
+ targetCPUUtilizationPercentage: 50
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: hpa-demo-deployment-v1
+spec:
+ selector:
+   matchLabels:
+     run: hpa-demo-deployment-v1
+ replicas: 1
+ template:
+   metadata:
+     labels:
+       run: hpa-demo-deployment-v1
+   spec:
+     containers:
+     - name: hpa-demo-deployment-v1
+       image: k8s.gcr.io/hpa-example
+       ports:
+       - containerPort: 80
+       resources:
+         limits:
+           cpu: 500m
+         requests:
+           cpu: 200m
+---
+apiVersion: v1
+kind: Service
+metadata:
+ name: hpa-demo-deployment-v1
+ labels:
+   run: hpa-demo-deployment-v1
+spec:
+ ports:
+ - port: 80
+ selector:
+   run: hpa-demo-deployment-v1

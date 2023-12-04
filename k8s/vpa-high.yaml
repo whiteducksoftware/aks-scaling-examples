@@ -1,0 +1,59 @@
+---
+apiVersion: "autoscaling.k8s.io/v1"
+kind: VerticalPodAutoscaler
+metadata:
+  name: hamster-vpa-high
+spec:
+  targetRef:
+    apiVersion: "apps/v1"
+    kind: Deployment
+    name: hamster-high
+  resourcePolicy:
+    containerPolicies:
+      - containerName: '*'
+        minAllowed:
+          cpu: 100m
+          memory: 50Mi
+        maxAllowed:
+          cpu: 1
+          memory: 500Mi
+        controlledResources: ["cpu", "memory"]
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hamster-high
+spec:
+  selector:
+    matchLabels:
+      app: hamster-high
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: hamster-high
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534 # nobody
+      containers:
+        - name: hamster-high
+          image: registry.k8s.io/ubuntu-slim:0.1
+          resources:
+            requests:
+              cpu: 1
+              memory: 500Mi
+          command: ["/bin/sh"]
+          args:
+            - "-c"
+            - "while true; do timeout 0.5s yes >/dev/null; sleep 0.5s; done"
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: hamster-high-pdb
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: hamster-high

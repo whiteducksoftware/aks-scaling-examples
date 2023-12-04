@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "zp1Qhq9Eau2X4fNv90Wqzs+csVV29iNA5fuB2vDn7yYu+ZeXSZIzfn+OgQYRMVQd+ifGYlfBG1lamwYL4zh7Eg==",
+  "success": true,
+  "projectFilePath": "/Users/pwelz/src/github/temp/blog/aks-scale/orders/Keda.Samples.Dotnet.Contracts/Keda.Samples.Dotnet.Contracts.csproj",
+  "expectedPackageFiles": [
+    "/Users/pwelz/.nuget/packages/newtonsoft.json/12.0.3/newtonsoft.json.12.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
