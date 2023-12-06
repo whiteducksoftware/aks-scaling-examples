@@ -95,18 +95,18 @@ This demo uses the VPA (needs to be activated on AKS)
 ```bash
 kubectl create ns vpa
 
-# Create VPA and deployment resources with too low resources
+# Create VPA and deployment resources with too low resources with update mode "auto"
 kubectl -n vpa apply -f ./k8s/vpa-low.yaml
 kubectl -n vpa describe pod hamster-low-
-kubectl describe vpa/hamster-vpa-low
+kubectl -n vpa describe vpa/hamster-vpa-low
 kubectl -n vpa events
 
-# Create VPA and deployment resources with too high resources
+# Create VPA and deployment resources with too high resources but with update mode "Off"
 kubectl -n vpa apply -f ./k8s/vpa-high.yaml
-kubectl get pods -w 
+kubectl -n vpa get pods
 kubectl -n vpa describe pod hamster-high-
-kubectl describe vpa/hamster-vpa-high
-kubectl -n vpa events 
+kubectl -n vpa get vpa
+kubectl -n vpa describe vpa/hamster-vpa-high
 ```
 
 ## KEDA

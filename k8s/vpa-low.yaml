@@ -8,6 +8,8 @@ spec:
     apiVersion: "apps/v1"
     kind: Deployment
     name: hamster-low
+  updatePolicy:
+    updateMode: "Auto"
   resourcePolicy:
     containerPolicies:
       - containerName: '*'
