@@ -2,12 +2,12 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: hpa-demo-deployment
+  name: hpa-demo-deployment-v2
 spec:
   scaleTargetRef:
    apiVersion: apps/v1
    kind: Deployment
-   name: hpa-demo-deployment
+   name: hpa-demo-deployment-v2
   minReplicas: 1
   maxReplicas: 10
   metrics:
@@ -21,19 +21,19 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
- name: hpa-demo-deployment
+ name: hpa-demo-deployment-v2
 spec:
  selector:
    matchLabels:
-     run: hpa-demo-deployment
+     run: hpa-demo-deployment-v2
  replicas: 1
  template:
    metadata:
      labels:
-       run: hpa-demo-deployment
+       run: hpa-demo-deployment-v2
    spec:
      containers:
-     - name: hpa-demo-deployment
+     - name: hpa-demo-deployment-v2
        image: k8s.gcr.io/hpa-example
        ports:
        - containerPort: 80
@@ -46,11 +46,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
- name: hpa-demo-deployment
+ name: hpa-demo-deployment-v2
  labels:
-   run: hpa-demo-deployment
+   run: hpa-demo-deployment-v2
 spec:
  ports:
  - port: 80
  selector:
-   run: hpa-demo-deployment
+   run: hpa-demo-deployment-v2
