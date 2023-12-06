@@ -127,7 +127,6 @@ watch -n 1 kubectl -n keda get rs,pod
 watch -n 1 az servicebus queue list -g <rg-name> --namespace-name <sb-name> -otsv --query "[].messageCount"
 
 dotnet run --project ./orders/Keda.Samples.Dotnet.OrderGenerator/Keda.Samples.Dotnet.OrderGenerator.csproj
-kubectl -n keda get pods -w
 kubectl -n keda events
 ```
 
